@@ -17,4 +17,4 @@ limitations under the License.
 VERSION_MAJOR = ""
 VERSION_MINOR = ""
 VERSION_PATCH = ""
-VERSION_OPT_TAG = "alpha 1"
+VERSION_OPT_TAG = "pre-alpha 1"
