@@ -13,3 +13,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
+import logging
+
+def main():
+
+    # Configure logging.
+    logger = logging.getLogger(__name__)
+    log_format= logging.Formatter("%(asctime)s [%(levelname)s] %(message)s",
+                                  "%Y-%m-%d %H:%M:%S")
+    console_stream = logging.StreamHandler()
+    console_stream.setFormatter(log_format)
+    logger.addHandler(console_stream)
+    logger.setLevel(logging.DEBUG)
+    logger.info("Logging level: DEBUG")
+
+if __name__ == "__main__":
+    main()
