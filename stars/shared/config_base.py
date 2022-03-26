@@ -85,8 +85,8 @@ class ConfigBase(configparser.ConfigParser):
         returns:
             A str or None if it's not a required field.
         """
-
-        value = self._read_from_env_variable(option, default, is_required)
+        value = self._read_from_env_variable(f"{section}_{option}",
+                                             default, is_required)
 
         # If no environment variable is found, check config file (if exits)
         if not value and self._has_config_file:
@@ -118,26 +118,26 @@ class ConfigBase(configparser.ConfigParser):
         returns:
             An int or None if it's not a required field.
         """
-
-        value = self._read_from_env_variable(option, default, is_required)
+        value = self._read_from_env_variable(f"{section}_{option}", default,
+                                             is_required)
 
         # If no environment variable is found, check config file (if exits)
         if not value and self._has_config_file:
             try:
-                self.getint(section, option)
+                value = self.getint(section, option)
 
             except configparser.NoOptionError:
                 value = None
 
             except ValueError as ex:
-                raise ValueError((f"Configuration option '{option}' is not a "
+                raise ValueError((f"Config file option '{option}' is not a "
                                    "valid int.")) from ex
 
         if not value and is_required:
             raise ValueError(f"Missing required config option '{option}'")
 
         try:
-            value = int(option)
+            value = int(value)
 
         except ValueError as ex:
             raise ValueError((f"Configuration option '{option}' with a value "
@@ -205,6 +205,7 @@ try:
     client_dir = d.read_str('client', 'import_directory', None)
     print('client dir', client_dir)
     print('--------------------------------')
+    d.read_int('client', 'port', is_required=True)
     d.read_int('client', 'import_directory', is_required=True)
 
 except ValueError as test_except:
