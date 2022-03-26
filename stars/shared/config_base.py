@@ -24,6 +24,27 @@ class ConfigBase(configparser.ConfigParser):
 
     def __init__(self, config_file : str = None, file_required : bool = False,
                  required_values = None):
+        """
+        Constructor for the configuration base class, it can take in a config
+        file and a dictionary to validate the file.
+
+        Example of required_fields:
+        required_config_values = {
+            'general':
+            {
+                'log_level': ('DEBUG', 'INFO')
+            },
+            'client':
+            {
+                'import_directory': None
+            }
+        }
+
+        parameters:
+            config_file : Config file to read (optional, default = None)
+            file_required : Is the file required (optional, default = False)
+            required_files : Dict of required item (optional, default = None)
+        """
         super().__init__()
 
         files_read = []
