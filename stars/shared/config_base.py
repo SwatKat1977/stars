@@ -72,9 +72,9 @@ class ConfigBase(configparser.ConfigParser):
                  is_required : bool = False) -> str:
         """
         Read a configuration option of type string, firstly it will check for
-        an enviroment variable, otherise try the configuration file (if it
-        exists). An ValueError exception is thrown it's missing and marked as
-        is_required.
+        an enviroment variable (format is section_option), otherise try the
+        configuration file (if it exists). An ValueError exception is thrown
+        it's missing and marked as is_required.
 
         parameters:
             section : Configuration section
@@ -105,9 +105,9 @@ class ConfigBase(configparser.ConfigParser):
                  is_required : bool = False) -> int:
         """
         Read a configuration option of type int, firstly it will check for
-        an enviroment variable, otherise try the configuration file (if it
-        exists). An ValueError exception is thrown it's missing and marked as
-        is_required or is not an int.
+        an enviroment variable (format is section_option), otherise try the
+        configuration file (if it exists). An ValueError exception is thrown
+        it's missing and marked as is_required or is not an int.
 
         parameters:
             section : Configuration section
