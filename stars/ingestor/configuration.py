@@ -32,5 +32,16 @@ class Configuration(ConfigBase):
         }
     }
 
+    @property
+    def logging_log_level(self):
+        return self._logging_log_level
+
+    @property
+    def general_import_dir(self):
+        return self._general_import_dir
+
     def __init__(self, config_file, file_required : bool) -> None:
         super().__init__(config_file, file_required, self.required_items)
+
+        self._logging_log_level = self.read_str('logging', 'log_level', 'INFO')
+        self._general_import_dir = self.read_str('general', 'import_directory')

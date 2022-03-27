@@ -14,8 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 import logging
+import os
+import configuration
 
 def main():
+    config_file = os.getenv("INGESTOR_CONFIG_FILE", None)
+    config_file_required = os.getenv("INGESTOR_CONFIG_FILE_REQUIRED", True)
+
+    if not config_file and config_file_required == 1:
+        print("[FATAL ERROR] Configuration file missing!")
+        return
+
+    try:
+        config = configuration.Configuration(config_file, config_file_required)
+
+    except ValueError as ex:
+        print(f"[FATAL ERROR] Configuration error : {ex}")
+        return
 
     # Configure logging.
     logger = logging.getLogger(__name__)
@@ -24,8 +39,8 @@ def main():
     console_stream = logging.StreamHandler()
     console_stream.setFormatter(log_format)
     logger.addHandler(console_stream)
-    logger.setLevel(logging.DEBUG)
-    logger.info("Logging level: DEBUG")
+    logger.setLevel(config.logging_log_level)
+    logger.info("Logging level: %s", config.logging_log_level)
 
 if __name__ == "__main__":
     main()
