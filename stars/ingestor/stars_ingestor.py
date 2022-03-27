@@ -15,6 +15,7 @@ limitations under the License.
 '''
 import logging
 import os
+import main_process
 import configuration
 
 def main():
@@ -41,6 +42,11 @@ def main():
     logger.addHandler(console_stream)
     logger.setLevel(config.logging_log_level)
     logger.info("Logging level: %s", config.logging_log_level)
+
+    ingestor_main_process = main_process.MainProcess(logger, config)
+
+    if ingestor_main_process.initialise():
+        ingestor_main_process.run()
 
 if __name__ == "__main__":
     main()
