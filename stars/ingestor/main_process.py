@@ -24,7 +24,7 @@ class MainProcess:
     __slots__ = ["_config", "_logger", "_shutdown_completed",
                  "_shutdown_requested"]
 
-    def __init__(self, logger : logging.Logger, 
+    def __init__(self, logger : logging.Logger,
                  config : configuration.Configuration):
         self._config = config
         self._logger = logger.getChild(__name__)
@@ -32,7 +32,12 @@ class MainProcess:
         self._shutdown_requested : bool = False
 
     def initialise(self) -> bool:
+        """
+        Initialse the ingestor main process.
 
+        returns:
+            A boolean - True if successful, otherwise False.
+        """
         init_status = False
 
         opt_tag = f"-{version.VERSION_OPT_TAG}" \
@@ -62,7 +67,9 @@ class MainProcess:
         return init_status
 
     def run(self) -> None:
-
+        """
+        Run the ingestor main process.
+        """
         while not self._shutdown_requested:
             try:
                 self._main_loop()
@@ -76,12 +83,14 @@ class MainProcess:
         self._shutdown_completed = True
 
     def stop(self) -> None:
+        """
+        Stop the ingestor main process.
+        """
         self._logger.info("Stopping Application process...")
 
         self._shutdown_requested = True
 
         while not self._shutdown_completed:
-            ''' '''
             time.sleep(0.1)
 
         self._logger.info("Application process shutdown has completed")
@@ -89,8 +98,10 @@ class MainProcess:
         self._shutdown()
 
     def _main_loop(self) -> None:
+        # pylint: disable=no-self-use
         ## The main loop code goes here...
         ...
 
     def _shutdown(self) -> None:
+        # pylint: disable=no-self-use
         ...

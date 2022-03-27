@@ -30,11 +30,13 @@ class Configuration(ConfigBase):
     }
 
     @property
-    def logging_log_level(self):
+    def logging_log_level(self) -> str:
+        """ Return config item logging | log level """
         return self._logging_log_level
 
     @property
-    def general_import_dir(self):
+    def general_import_dir(self) -> str:
+        """ Return config item general | import directory root """
         return self._general_import_dir
 
     def __init__(self, config_file, file_required : bool) -> None:
