@@ -19,15 +19,19 @@ import main_process
 import configuration
 
 def main():
-    config_file = os.getenv("INGESTOR_CONFIG_FILE", None)
-    config_file_required = os.getenv("INGESTOR_CONFIG_FILE_REQUIRED", True)
+    """ Staff Recruitment System Ingestor service entrypoint """
 
-    if not config_file and config_file_required == 1:
+    config_file = os.getenv("INGESTOR_CONFIG_FILE", None)
+
+    config_file_req = os.getenv("INGESTOR_CONFIG_FILE_REQUIRED", None)
+    config_file_req = False if not config_file_req else config_file_req
+
+    if not config_file and config_file_req == 1:
         print("[FATAL ERROR] Configuration file missing!")
         return
 
     try:
-        config = configuration.Configuration(config_file, config_file_required)
+        config = configuration.Configuration(config_file, config_file_req)
 
     except ValueError as ex:
         print(f"[FATAL ERROR] Configuration error : {ex}")
@@ -41,7 +45,6 @@ def main():
     console_stream.setFormatter(log_format)
     logger.addHandler(console_stream)
     logger.setLevel(config.logging_log_level)
-    logger.info("Logging level: %s", config.logging_log_level)
 
     ingestor_main_process = main_process.MainProcess(logger, config)
 
