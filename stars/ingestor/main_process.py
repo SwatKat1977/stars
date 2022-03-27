@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 import logging
+import os
 import time
 import configuration
 import version
@@ -32,6 +33,8 @@ class MainProcess:
 
     def initialise(self) -> bool:
 
+        init_status = False
+
         opt_tag = f"-{version.VERSION_OPT_TAG}" \
             if version.VERSION_OPT_TAG != "" else ""
         version_str = (f"V{version.VERSION_MAJOR}."
@@ -49,7 +52,14 @@ class MainProcess:
                           self._config.general_import_dir)
         self._logger.info("-------------------------------------")
 
-        return True
+        if os.path.isdir(self._config.general_import_dir):
+            init_status = True
+
+        else:
+            self._logger.error("Import directory root '%s', is invalid",
+                               self._config.general_import_dir)
+
+        return init_status
 
     def run(self) -> None:
 
