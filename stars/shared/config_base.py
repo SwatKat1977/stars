@@ -186,27 +186,3 @@ class ConfigBase(configparser.ConfigParser):
             raise ValueError((
                 'Invalid value for %s under section %s in ' +
                 'the config file') % (key, section))
-
-required_config_values = {
-    'general':
-    {
-        'log_level': ('DEBUG', 'INFO'),
-        'mode': ('master')
-    },
-    'client':
-    {
-        'import_directory': None
-    }
-}
-
-try:
-    d = ConfigBase('None', True, required_config_values)
-    #d.read_int('client', 'import_directory', None)
-    client_dir = d.read_str('client', 'import_directory', None)
-    print('client dir', client_dir)
-    print('--------------------------------')
-    d.read_int('client', 'port', is_required=True)
-    d.read_int('client', 'import_directory', is_required=True)
-
-except ValueError as test_except:
-    print(test_except)
