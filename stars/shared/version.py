@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-VERSION_MAJOR = ""
-VERSION_MINOR = ""
-VERSION_PATCH = ""
+VERSION_MAJOR = "0"
+VERSION_MINOR = "0"
+VERSION_PATCH = "0"
 VERSION_OPT_TAG = "pre-alpha 1"

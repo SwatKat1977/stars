@@ -15,9 +15,6 @@ limitations under the License.
 '''
 from config_base import ConfigBase
 
-# def __init__(self, config_file : str = None, file_required : bool = False,
-#              required_values = None):
-
 class Configuration(ConfigBase):
     """ Class defining ingestor service configuration options """
 
@@ -44,4 +41,5 @@ class Configuration(ConfigBase):
         super().__init__(config_file, file_required, self.required_items)
 
         self._logging_log_level = self.read_str('logging', 'log_level', 'INFO')
-        self._general_import_dir = self.read_str('general', 'import_directory')
+        self._general_import_dir = self.read_str('general', 'import_directory',
+                                                 is_required=True)
